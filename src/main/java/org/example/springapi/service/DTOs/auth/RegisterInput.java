@@ -1,24 +1,16 @@
-package org.example.springapi.api.model;
+package org.example.springapi.service.DTOs.auth;
 
-public class User {
-    private int id;
+public class RegisterInput {
     private String name;
     private int age;
     private String email;
+    private String password;
 
-    public User(int id, String name, int age, String email){
-        this.id = id;
+    public RegisterInput(String name, int age, String email, String password) {
         this.name = name;
         this.age = age;
         this.email = email;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.password = password;
     }
 
     public String getName() {
@@ -43,5 +35,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

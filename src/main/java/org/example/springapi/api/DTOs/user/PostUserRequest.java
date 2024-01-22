@@ -1,4 +1,4 @@
-package org.example.springapi.api.model;
+package org.example.springapi.api.DTOs.user;
 
 public class PostUserRequest {
     private String name;
@@ -11,7 +11,7 @@ public class PostUserRequest {
         this.email = email;
     }
 
-    public boolean isValid(){
+    public boolean isValid() {
         return !this.name.isBlank() && this.age >= 0 && !this.email.isBlank();
     }
 
