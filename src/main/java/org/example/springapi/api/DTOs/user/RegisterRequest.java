@@ -1,18 +1,16 @@
 package org.example.springapi.api.DTOs.user;
 
-public class PostUserRequest {
+public class RegisterRequest {
     private String name;
     private int age;
     private String email;
+    private String password;
 
-    public PostUserRequest(String name, int age, String email) {
+    public RegisterRequest(String name, int age, String email, String password) {
         this.name = name;
         this.age = age;
         this.email = email;
-    }
-
-    public boolean isValid() {
-        return !this.name.isBlank() && this.age >= 0 && !this.email.isBlank();
+        this.password = password;
     }
 
     public String getName() {
@@ -37,5 +35,13 @@ public class PostUserRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

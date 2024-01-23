@@ -1,12 +1,12 @@
 package org.example.springapi.repository.models.user;
 
-public class CreateUserRequest {
+public class CreateRequest {
     private String name;
     private int age;
     private String email;
     private String password;
 
-    public CreateUserRequest(String name, int age, String email, String password) {
+    public CreateRequest(String name, int age, String email, String password) {
         this.name = name;
         this.age = age;
         this.email = email;

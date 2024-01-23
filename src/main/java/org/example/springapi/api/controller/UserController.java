@@ -1,9 +1,13 @@
 package org.example.springapi.api.controller;
 
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.example.springapi.api.DTOs.user.LoginRequest;
+import org.example.springapi.api.DTOs.user.RegisterRequest;
+import org.example.springapi.service.DTOs.user.RegisterInput;
 import org.example.springapi.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,19 +29,18 @@ public class UserController {
     }
 
     @PostMapping("/user/register")
-    public ResponseEntity<Map<String, Object>> postUserRegister(@RequestBody Object request) {
+    public ResponseEntity<String> postUserRegister(@RequestBody RegisterRequest request) throws Exception {
+        String email = userService.register(
+                new RegisterInput(request.getName(), request.getAge(), request.getEmail(), request.getPassword()));
 
-        Map<String, Object> object = new HashMap<>();
-        object.put("register", 1);
-        return new ResponseEntity<>(object, HttpStatus.OK);
+        return new ResponseEntity<>(email, HttpStatus.CREATED);
     }
 
     @PostMapping("/user/login")
-    public ResponseEntity<Map<String, Object>> postUserLogin(@RequestBody Object request) {
+    public ResponseEntity<UserLoginOutput> postUserLogin(@RequestBody LoginRequest request) {
+        UserLoginOutput userLogin = userService.login();
 
-        Map<String, Object> object = new HashMap<>();
-        object.put("login", 1);
-        return new ResponseEntity<>(object, HttpStatus.OK);
+        return new ResponseEntity<>(userLogin, HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
