@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.example.springapi.domain.models.User;
 import org.example.springapi.repository.interfaces.IUserRepository;
+import org.example.springapi.repository.models.user.CreateUserRequest;
 import org.example.springapi.service.DTOs.auth.RegisterInput;
 import org.example.springapi.service.DTOs.auth.RegisterOutput;
 import org.example.springapi.service.interfaces.IAuthService;
@@ -23,6 +24,14 @@ public class AuthService implements IAuthService {
     public RegisterOutput register(RegisterInput input) {
         User user = userRepository.findByEmail(input.getEmail());
 
-        return new RegisterOutput(user.getEmail());
+        if (user != null)
+            return new RegisterOutput(user.getEmail());
+
+        CreateUserRequest createdUser = new CreateUserRequest(input.getName(), input.getAge(), input.getEmail(),
+                input.getPassword());
+
+        String createdUserEmail = userRepository.create(createdUser);
+
+        return new RegisterOutput(createdUserEmail);
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.example.springapi.domain.models.User;
 import org.example.springapi.repository.interfaces.IUserRepository;
+import org.example.springapi.repository.models.user.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,7 +24,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User findByEmail(String email) {
-        String sql = "SELECT * FROM \"user\" WHERE email = ?";
+        String sql = "SELECT * FROM public.\"user\" WHERE email = ?";
 
         RowMapper<User> rowMapper = new RowMapper<User>() {
             @Override
@@ -36,5 +37,15 @@ public class UserRepository implements IUserRepository {
         List<User> users = jdbcTemplate.query(sql, rowMapper, email);
 
         return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
+    public String create(CreateUserRequest request) {
+        String sql = "INSERT INTO public.\"user\" (name, age, email, password) VALUES (?, ?, ?, ?)";
+
+        int rowsAffected = jdbcTemplate.update(sql, request.getName(), request.getAge(), request.getEmail(),
+                request.getPassword());
+
+        return rowsAffected > 0 ? request.getEmail() : null;
     }
 }

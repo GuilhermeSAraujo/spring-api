@@ -32,7 +32,7 @@ public class AuthController {
                         request.getPassword()));
 
         if (register != null)
-            return new ResponseEntity<>(register, HttpStatus.OK);
+            return new ResponseEntity<>(register, HttpStatus.CREATED);
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
