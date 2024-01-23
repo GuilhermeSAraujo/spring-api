@@ -24,15 +24,15 @@ public class AuthController {
 
     @PostMapping("/auth/register")
     public ResponseEntity<RegisterOutput> postAuthRegister(@RequestBody PostAuthRegisterRequest request) {
-        Optional<RegisterOutput> register = authService.register(
+        RegisterOutput register = authService.register(
                 new RegisterInput(
                         request.getName(),
                         request.getAge(),
                         request.getEmail(),
                         request.getPassword()));
 
-        if (register.isPresent())
-            return new ResponseEntity<>(register.get(), HttpStatus.OK);
+        if (register != null)
+            return new ResponseEntity<>(register, HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

@@ -20,13 +20,9 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public Optional<RegisterOutput> register(RegisterInput input) {
-        Optional<User> user = userRepository.findByEmail(input.getEmail());
+    public RegisterOutput register(RegisterInput input) {
+        User user = userRepository.findByEmail(input.getEmail());
 
-        if (user.isPresent()) {
-            return Optional.of(new RegisterOutput(user.get().getEmail()));
-        } else {
-            return Optional.empty();
-        }
+        return new RegisterOutput(user.getEmail());
     }
 }
