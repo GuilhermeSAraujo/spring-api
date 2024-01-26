@@ -21,12 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    private IUserService userService;
-
     @Autowired
-    public UserController(IUserService userService) {
-        this.userService = userService;
-    }
+    private IUserService userService;
 
     @PostMapping("/user/register")
     public ResponseEntity<String> postUserRegister(@RequestBody RegisterRequest request) throws Exception {
